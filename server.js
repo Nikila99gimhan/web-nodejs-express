@@ -7,17 +7,20 @@ const app = express();
 
 const port = 3000;
 
-console.log('restarting');
+app.set('view engine','ejs');
+app.set('views',path.join(__dirname,'./views'));
+
 
 app.use(express.static(path.join(__dirname,'./static')));
 
 app.get('/',(request,response) => {
-   response.sendFile(path.join(__dirname,'./static/index.html'));
+   response.render('pages/index',{pageTitle: 'Welcome'});
 });
 app.get('/speakers',(request,response) => {
     response.sendFile(path.join(__dirname,'./static/speakers.html'));
  });
 
 app.listen(port, () => {
-    console.log('Express sever Listening on port $(port)!');
+    // eslint-disable-next-line no-template-curly-in-string
+    console.log('Express sever Listening on port ${port}!');
 });
